@@ -7,6 +7,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+// 사용자 인증을 위해 DB에서 사용자 정보를 조회하는 역할
+// UserDetailsService 인터페이스를 구현한 클래스
+// 로그인 아이디로 회원 정보를 찾아내고, 없으면 에러를 던지는 역할
+// 스프링 시큐리티가 CustomUserDetailsService를 호출하고, 반환된 CustomerUserDetails를 사용한다.
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
@@ -32,6 +36,8 @@ public class CustomUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("User not found: " + username);
         }
 
+        // 스프링 시큐리티 프레임워크가 자동으로 이 정보를 받아 처리한다
+        // 해당 반환값을 통해 비밀번호 일치 검사 및 권한 체크 등을 수행한다
         return new CustomerUserDetails(member);
     }
 }
